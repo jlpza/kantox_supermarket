@@ -2,20 +2,26 @@ defmodule KantoxSupermarket do
   @moduledoc """
   Documentation for `KantoxSupermarket`.
   """
+  alias Discounts.{
+    BuySomeGetSomeFree,
+    Discount,
+    DiscountForBuyingMoreThan,
+    NewPriceForBuyingMoreThan
+  }
 
   def calculate_price(basket) do
-    basket_frequencies = Enum.frequencies(basket)
-    gr1 = Map.get(basket_frequencies, "GR1", 0)
-    sr1 = Map.get(basket_frequencies, "SR1", 0)
-    cf1 = Map.get(basket_frequencies, "CF1", 0)
+    products = Enum.map(basket, &Data.get_product/1)
 
-    # Green Tea, do one get one free
-    gr1_price = (gr1 - div(gr1, 2)) * 3.11
-    # Strawberries discount if you buy 3 or more
-    sr1_price = if sr1 >= 3, do: sr1 * 4.50, else: sr1 * 5.00
-    # Coffee discount if you buy 3 or more
-    cf1_price = if cf1 >= 3, do: cf1 * 11.23 * (2 / 3), else: cf1 * 11.23
-
-    Float.ceil(gr1_price + sr1_price + cf1_price, 2)
+    [
+      # Green Tea, do one get one free
+      %BuySomeGetSomeFree{product_id: "GR1", needed_products: 1, free_products: 1},
+      # Strawberries discount if you buy 3 or more
+      %NewPriceForBuyingMoreThan{product_id: "SR1", minimum_units: 3, new_price: 4.50},
+      # Coffee discount if you buy 3 or more
+      %DiscountForBuyingMoreThan{product_id: "CF1", minimum_units: 3, discount_rate: 2 / 3}
+    ]
+    |> Enum.reduce(products, &Discount.apply/2)
+    |> Enum.reduce(0.00, fn %Data.Product{price: price}, acc -> acc + price end)
+    |> Float.round(2)
   end
 end

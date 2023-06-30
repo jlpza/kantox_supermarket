@@ -1,6 +1,7 @@
 # KantoxSupermarket
 
-**TODO: Add description**
+Kantox supermarket. The following assumptions were made:
+* The price rounding is performed after applying all the discounts and adding all the prices.
 
 ## Installation
 
