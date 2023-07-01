@@ -73,7 +73,7 @@ defmodule KantoxSupermarketTest do
     assert {:error, "Please provide a list of product ids"} ==
              KantoxSupermarket.calculate_price(nil)
 
-    assert {:error, "Product id XZ1 not recognized"} ==
+    assert {:error, "Product id \"XZ1\" not recognized"} ==
              KantoxSupermarket.calculate_price(["SR1", "CF1", "XZ1", "GR1"])
   end
 end

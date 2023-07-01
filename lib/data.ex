@@ -25,9 +25,11 @@ defmodule Data do
     :ok
   end
 
-  @spec get_product(product_id :: String.t()) :: Product.t()
+  @spec get_product(product_id :: String.t()) :: {:ok, Product.t()} | {:error, String.t()}
   def get_product(product_id) do
-    [{^product_id, product}] = :ets.lookup(:product, product_id)
-    product
+    case :ets.lookup(:product, product_id) do
+      [{^product_id, product}] -> {:ok, product}
+      _ -> {:error, "Product id #{inspect(product_id)} not recognized"}
+    end
   end
 end
