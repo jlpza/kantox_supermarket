@@ -5,10 +5,10 @@ defmodule Data do
     defstruct id: nil, name: nil, price: 0.0
   end
 
-  def load_products do
+  def load_products(products_file \\ @products_file) do
     :ets.new(:product, [:set, :protected, :named_table])
 
-    @products_file
+    products_file
     |> File.stream!()
     |> CSV.decode!()
     |> Enum.map(fn [id, name, price] ->

@@ -1,12 +1,13 @@
 defmodule KantoxSupermarketTest do
   use ExUnit.Case
+
   doctest KantoxSupermarket
 
   setup_all _ do
-    Data.load_products()
+    Data.load_products("data/products_test.csv")
   end
 
-  test "greets the world" do
+  test "Standard scenarios" do
     assert 22.45 == KantoxSupermarket.calculate_price(["GR1", "SR1", "GR1", "GR1", "CF1"])
     assert 3.11 == KantoxSupermarket.calculate_price(["GR1", "GR1"])
     assert 16.61 == KantoxSupermarket.calculate_price(["SR1", "SR1", "GR1", "SR1"])
