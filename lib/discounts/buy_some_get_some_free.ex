@@ -1,11 +1,18 @@
 defmodule Discounts.BuySomeGetSomeFree do
+  @type t :: %__MODULE__{
+          product_id: String.t(),
+          needed_products: non_neg_integer(),
+          free_products: non_neg_integer()
+        }
   defstruct product_id: nil, needed_products: 0, free_products: 0
 
   defimpl Discounts.Discount, for: __MODULE__ do
     alias Data.Product
+    alias Discounts.BuySomeGetSomeFree
 
+    @spec apply(BuySomeGetSomeFree.t(), list(Product.t())) :: list(Product.t())
     def apply(
-          %Discounts.BuySomeGetSomeFree{
+          %BuySomeGetSomeFree{
             product_id: product_id,
             needed_products: needed_products,
             free_products: free_products

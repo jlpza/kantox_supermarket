@@ -1,11 +1,18 @@
 defmodule Discounts.DiscountForBuyingMoreThan do
+  @type t :: %__MODULE__{
+          product_id: String.t(),
+          minimum_units: float(),
+          discount_rate: float()
+        }
   defstruct product_id: nil, minimum_units: 0, discount_rate: 0.0
 
   defimpl Discounts.Discount, for: __MODULE__ do
     alias Data.Product
+    alias Discounts.DiscountForBuyingMoreThan
 
+    @spec apply(DiscountForBuyingMoreThan.t(), list(Product.t())) :: list(Product.t())
     def apply(
-          %Discounts.DiscountForBuyingMoreThan{
+          %DiscountForBuyingMoreThan{
             product_id: product_id,
             minimum_units: minimum_units,
             discount_rate: discount_rate

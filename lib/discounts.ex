@@ -1,11 +1,13 @@
 defmodule Discounts do
   alias Discounts.{
     BuySomeGetSomeFree,
+    Discount,
     DiscountForBuyingMoreThan,
     NewPriceForBuyingMoreThan
   }
 
-  def get_discounts() do
+  @spec get_discounts :: list(Discount.t())
+  def get_discounts do
     [
       # Green Tea, do one get one free
       %BuySomeGetSomeFree{product_id: "GR1", needed_products: 1, free_products: 1},

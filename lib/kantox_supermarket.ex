@@ -4,6 +4,7 @@ defmodule KantoxSupermarket do
   """
   alias Discounts.Discount
 
+  @spec calculate_price(list(String.t())) :: float()
   def calculate_price(basket) do
     products = Enum.map(basket, &Data.get_product/1)
 

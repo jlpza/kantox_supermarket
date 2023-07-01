@@ -7,7 +7,8 @@ defmodule KantoxSupermarket.MixProject do
       version: "0.1.0",
       elixir: "~> 1.14",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      dialyzer: [flags: [:error_handling, :underspecs]]
     ]
   end
 
@@ -21,6 +22,7 @@ defmodule KantoxSupermarket.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
       {:csv, "~> 3.0"},
       {:mock, "~> 0.3.8"}
       # {:dep_from_hexpm, "~> 0.3.0"},
