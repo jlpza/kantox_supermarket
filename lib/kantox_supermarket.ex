@@ -12,7 +12,7 @@ defmodule KantoxSupermarket do
         error
 
       products ->
-        Discounts.get_discounts()
+        Data.Discount.get_all()
         |> Enum.reduce(products, &Discount.apply/2)
         |> Enum.reduce(0.00, fn %Data.Product{price: price}, acc -> acc + price end)
         |> Float.round(2)
@@ -25,7 +25,7 @@ defmodule KantoxSupermarket do
   defp get_products([], acc), do: acc
 
   defp get_products([product_id | basket], acc) do
-    case Data.get_product(product_id) do
+    case Data.Product.get(product_id) do
       {:ok, product} -> get_products(basket, [product | acc])
       {:error, _} = error -> error
     end

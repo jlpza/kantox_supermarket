@@ -1,10 +1,10 @@
 # Kantox Supermarket
 
+A supermarket library that processes a list of products and calculates the total price for the listed items. The available products along with their prices are read from a CSV file. Meanwhile, the discounts are read from a JSON file.
+
+
 The following assumptions were made:
 * The price rounding is performed after applying all the discounts and adding all the prices. Values over or equal to 0.005 are rounded up, while values under 0.005 are rounded down.
-
-Limitations and future work:
-* The discounts are hard-coded into the library. They could be read from a JSON file or a database. JSON format is a good candidate for storing the discounts, as it allows for maximum flexibility in the discount's parameters.
 
 ## Running the library
 

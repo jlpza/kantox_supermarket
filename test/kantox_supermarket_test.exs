@@ -5,7 +5,7 @@ defmodule KantoxSupermarketTest do
   alias Discounts.{BuySomeGetSomeFree, DiscountForBuyingMoreThan, NewPriceForBuyingMoreThan}
 
   setup_all _ do
-    Data.load_products("data/products_test.csv")
+    Data.Product.load("data/products_test.csv")
   end
 
   test "Predefined scenarios of the exercise" do
@@ -15,8 +15,8 @@ defmodule KantoxSupermarketTest do
     assert {:ok, 30.57} == KantoxSupermarket.calculate_price(["GR1", "CF1", "SR1", "CF1", "CF1"])
   end
 
-  test_with_mock "Mixed products", Discounts,
-    get_discounts: fn ->
+  test_with_mock "Mixed products", Data.Discount,
+    get_all: fn ->
       [
         %BuySomeGetSomeFree{product_id: "GR1", needed_products: 1, free_products: 1},
         %NewPriceForBuyingMoreThan{product_id: "SR1", minimum_units: 3, new_price: 4.50},
@@ -57,8 +57,8 @@ defmodule KantoxSupermarketTest do
              ])
   end
 
-  test_with_mock "Error scenarios", Discounts,
-    get_discounts: fn ->
+  test_with_mock "Error scenarios", Data.Discount,
+    get_all: fn ->
       [
         %BuySomeGetSomeFree{product_id: "GR1", needed_products: 1, free_products: 1},
         %NewPriceForBuyingMoreThan{product_id: "SR1", minimum_units: 3, new_price: 4.50},

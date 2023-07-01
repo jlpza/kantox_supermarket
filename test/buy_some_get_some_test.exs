@@ -5,11 +5,11 @@ defmodule BuySomeGetSomeTest do
   alias Discounts.BuySomeGetSomeFree
 
   setup_all _ do
-    Data.load_products("data/products_test.csv")
+    Data.Product.load("data/products_test.csv")
   end
 
-  test_with_mock "Buy 3 get 1", Discounts,
-    get_discounts: fn ->
+  test_with_mock "Buy 3 get 1", Data.Discount,
+    get_all: fn ->
       [%BuySomeGetSomeFree{product_id: "GR1", needed_products: 3, free_products: 1}]
     end do
     assert {:ok, Float.round(3.11, 2)} ==
@@ -40,8 +40,8 @@ defmodule BuySomeGetSomeTest do
              KantoxSupermarket.calculate_price(List.duplicate("GR1", 9))
   end
 
-  test_with_mock "Buy 1 get 3", Discounts,
-    get_discounts: fn ->
+  test_with_mock "Buy 1 get 3", Data.Discount,
+    get_all: fn ->
       [%BuySomeGetSomeFree{product_id: "GR1", needed_products: 1, free_products: 3}]
     end do
     assert {:ok, Float.round(3.11, 2)} ==

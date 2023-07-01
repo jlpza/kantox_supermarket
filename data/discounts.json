@@ -1,0 +1,20 @@
+[
+    {
+        "discount": "buy_some_get_some_free",
+        "product_id": "GR1",
+        "needed_products": 1,
+        "free_products": 1
+    },
+    {
+        "discount": "discount_for_buying_more_than",
+        "product_id": "CF1",
+        "minimum_units": 3,
+        "discount_rate": 0.6666666666666666
+    },
+    {
+        "discount": "new_price_for_buying_more_than",
+        "product_id": "SR1",
+        "minimum_units": 3,
+        "new_price": 4.50
+    }
+]

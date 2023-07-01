@@ -5,11 +5,11 @@ defmodule DiscountForBuyingMoreThanTest do
   alias Discounts.DiscountForBuyingMoreThan
 
   setup_all _ do
-    Data.load_products("data/products_test.csv")
+    Data.Product.load("data/products_test.csv")
   end
 
-  test_with_mock "Buy 3 or more, 30% discount", Discounts,
-    get_discounts: fn ->
+  test_with_mock "Buy 3 or more, 30% discount", Data.Discount,
+    get_all: fn ->
       [%DiscountForBuyingMoreThan{product_id: "CF1", minimum_units: 3, discount_rate: 0.7}]
     end do
     assert {:ok, Float.round(11.23, 2)} ==
@@ -34,8 +34,8 @@ defmodule DiscountForBuyingMoreThanTest do
              KantoxSupermarket.calculate_price(List.duplicate("CF1", 7))
   end
 
-  test_with_mock "Buy 1 or more, 20% discount", Discounts,
-    get_discounts: fn ->
+  test_with_mock "Buy 1 or more, 20% discount", Data.Discount,
+    get_all: fn ->
       [%DiscountForBuyingMoreThan{product_id: "CF1", minimum_units: 1, discount_rate: 0.8}]
     end do
     assert {:ok, Float.round(11.23 * 0.8, 2)} ==
